@@ -19,6 +19,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.bumptech.glide.Glide;
 import com.example.gifiks.databinding.FragmentFirstBinding;
 
+//to upload a gif it must be in the memory of the phone. one place to add them is at data/media/0/Pictures
 public class UploadGif extends Fragment {
     Button AddGif;
     ImageView ViewGif;
