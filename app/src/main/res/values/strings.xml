@@ -4,6 +4,9 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="login_fragment_label">Login</string>
+    <string name="Upload_fragment_label">Upload Gif</string>
+    <string name="Create_Account_fragment_label">Create Account</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
@@ -18,4 +21,5 @@
     <string name="title_activity_login_page">LoginPageActivity</string>
     <string name="create_account">create account</string>
     <string name="gifiks">Gifiks</string>
+    <string name="login">Login</string>
 </resources>

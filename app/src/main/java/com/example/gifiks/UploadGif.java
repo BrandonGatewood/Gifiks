@@ -17,32 +17,29 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
-import com.example.gifiks.databinding.FragmentFirstBinding;
+import com.example.gifiks.databinding.UploadGifBinding;
 
 //to upload a gif it must be in the memory of the phone. one place to add them is at data/media/0/Pictures
 public class UploadGif extends Fragment {
     Button AddGif;
     ImageView ViewGif;
-    //int SELECT_PICTURE = 200;
-    //Uri imageUri;
 
-    private FragmentFirstBinding binding;
+    private UploadGifBinding binding;
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = UploadGifBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
-
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AddGif = (Button) getView().findViewById(R.id.AddGif);
         ViewGif = (ImageView) getView().findViewById(R.id.ViewGif);
 
-        AddGif.setOnClickListener(new View.OnClickListener() {
+        binding.AddGif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 imageChooser();
@@ -52,7 +49,7 @@ public class UploadGif extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(UploadGif.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                        .navigate(R.id.action_to_CreateAccountFragment);
             }
         });
     }
@@ -71,7 +68,6 @@ public class UploadGif extends Fragment {
                 if (result.getResultCode()
                         == Activity.RESULT_OK) {
                     Intent data = result.getData();
-                    // do your operation from here....
                     if (data != null
                             && data.getData() != null) {
                         Uri selectedImageUri = data.getData();
@@ -84,8 +80,6 @@ public class UploadGif extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        //AddGif = null;
-        //ViewGif = null;
     }
 
 }
