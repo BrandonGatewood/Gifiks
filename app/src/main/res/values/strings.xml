@@ -15,4 +15,7 @@
     <string name="email">Email</string>
     <string name="password">password</string>
     <string name="create_new_account">Create new account</string>
+    <string name="title_activity_login_page">LoginPageActivity</string>
+    <string name="create_account">create account</string>
+    <string name="gifiks">Gifiks</string>
 </resources>
