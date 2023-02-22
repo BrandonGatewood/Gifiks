@@ -3,26 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/LoginFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.gifiks.UploadGif"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/LoginFragment"
+        android:name="com.example.gifiks.LoginPage"
+        android:label="@string/login_fragment_label"
+        tools:layout="@layout/activity_login_page">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_to_UploadGifFragment"
+            app:destination="@id/UploadGifFragment" />
+        <action
+            android:id="@+id/action_to_CreateAccountFragment"
+            app:destination="@id/CreateAccountFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.gifiks.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/UploadGifFragment"
+        android:name="com.example.gifiks.UploadGif"
+        android:label="@string/Upload_fragment_label"
+        tools:layout="@layout/upload_gif">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_to_CreateAccountFragment"
+            app:destination="@id/CreateAccountFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/CreateAccountFragment"
+        android:name="com.example.gifiks.CreateAccount"
+        android:label="@string/Create_Account_fragment_label"
+        tools:layout="@layout/activity_create_account">
+        <action
+            android:id="@+id/action_to_UploadGifFragment"
+            app:destination="@id/UploadGifFragment" />
     </fragment>
 </navigation>
