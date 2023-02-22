@@ -55,6 +55,11 @@ public class CreateAccount extends Fragment {
                     Toast.makeText(view1.getContext(), "Username is taken", Toast.LENGTH_LONG).show();
                 }
                 else {
+                    // Add new account to database
+                    String welcome = "Welcome to Gifiks, " + username;
+                    addNewAccount(username, email, password);
+                    Toast.makeText(view1.getContext(), welcome , Toast.LENGTH_LONG).show();
+
                     NavHostFragment.findNavController(CreateAccount.this)
                             .navigate(R.id.action_to_UploadGifFragment);
                 }
@@ -73,7 +78,7 @@ public class CreateAccount extends Fragment {
     /*
         Add new account to database (.txt file)
      */
-    private void AddNewAccount() {
+    private void addNewAccount(String username, String email, String password) {
 
     }
 
