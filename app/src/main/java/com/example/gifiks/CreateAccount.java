@@ -1,7 +1,6 @@
 package com.example.gifiks;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +8,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.gifiks.databinding.ActivityCreateAccountBinding;
-import com.example.gifiks.databinding.ActivityLoginPageBinding;
-
-import javax.xml.parsers.FactoryConfigurationError;
 
 
 public class CreateAccount extends Fragment {
@@ -35,40 +30,48 @@ public class CreateAccount extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.createAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(CreateAccount.this)
-                        .navigate(R.id.action_to_UploadGifFragment);
+        final EditText viewUsername = view.findViewById(R.id.createAnAccountUsername);
+        final EditText viewEmail = view.findViewById(R.id.createAnAccountEmail);
+        final EditText viewPassword = view.findViewById(R.id.createAnAccountPassword);
+
+        binding.createAccount.setOnClickListener(view1 -> {
+            String username = viewUsername.getText().toString();
+            String email = viewEmail.getText().toString();
+            String password = viewPassword.getText().toString();
+
+            // Check if username, email, and password has been entered
+            if(username.isEmpty()) {
+                Toast.makeText(view1.getContext(), "Missing Username", Toast.LENGTH_LONG).show();
+            }
+            else if(email.isEmpty()) {
+                Toast.makeText(view1.getContext(), "Missing Email", Toast.LENGTH_LONG).show();
+            }
+            else if(password.isEmpty()) {
+                Toast.makeText(view1.getContext(), "Missing Password", Toast.LENGTH_LONG).show();
+            }
+            else {
+                // Check if username is already take
+                if(checkUsername(username)) {
+                    Toast.makeText(view1.getContext(), "Username is taken", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    NavHostFragment.findNavController(CreateAccount.this)
+                            .navigate(R.id.action_to_UploadGifFragment);
+                }
             }
         });
     }
-    /**
-     * When submit button is clicked, check if ALL input fields have been entered and validate
-     * them before submitting.
+
+    /*
+       Checks database (.txt file) if username is already taken. Returns true if taken and false
+       if not taken.
      */
-/*    public void checkInputs(View view) {
-        EditText username_field = CreateAccount.this.findViewById(R.id.createAnAccountUsername);
-        EditText email_field = CreateAccount.this.findViewById(R.id.createAnAccountEmail);
-        EditText password_field = CreateAccount.this.findViewById(R.id.createAnAccountPassword);
+    private boolean checkUsername(String username) {
+        return true;
+    }
 
-
-        // First check if any of the required fields is missing
-        if (TextUtils.isEmpty(username_field.getText().toString())) {
-            Toast.makeText(CreateAccount.this, "Missing Username", Toast.LENGTH_LONG).show();
-        }
-        else if (TextUtils.isEmpty(email_field.getText().toString())) {
-            Toast.makeText(CreateAccount.this, "Missing email", Toast.LENGTH_LONG).show();
-        }
-        else if (TextUtils.isEmpty(password_field.getText().toString())) {
-            Toast.makeText(CreateAccount.this, "Missing password", Toast.LENGTH_LONG).show();
-        }
-        else {
-            AddNewAccount();
-        }
-    }*/
-    /**
-     * Add new account to database
+    /*
+        Add new account to database (.txt file)
      */
     private void AddNewAccount() {
 
