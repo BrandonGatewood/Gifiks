@@ -1,15 +1,16 @@
 package com.example.gifiks;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+
 import com.example.gifiks.databinding.ActivityLoginPageBinding;
 
 public class LoginPage extends Fragment {
@@ -28,16 +29,26 @@ public class LoginPage extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.createAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(LoginPage.this)
-                        .navigate(R.id.action_to_CreateAccountFragment);
+        final EditText viewUsername = view.findViewById(R.id.loginUsername);
+        final EditText viewPassword = view.findViewById(R.id.loginPassword);
+
+        binding.createAccount.setOnClickListener(view12 -> NavHostFragment.findNavController(LoginPage.this)
+                .navigate(R.id.action_to_CreateAccountFragment));
+
+        binding.login.setOnClickListener(view1 -> {
+            String username = viewUsername.getText().toString();
+            String password = viewPassword.getText().toString();
+
+            // Check if username and password
+            if(username.isEmpty()) {
+                Toast.makeText(view1.getContext(), "Missing Username", Toast.LENGTH_LONG).show();
             }
-        });
-        binding.login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            else if(password.isEmpty()) {
+                Toast.makeText(view1.getContext(), "Missing Password", Toast.LENGTH_LONG).show();
+            }
+            // Validate login credentials
+            else {
+                Toast.makeText(view1.getContext(), "Validate", Toast.LENGTH_LONG).show();
                 NavHostFragment.findNavController(LoginPage.this)
                         .navigate(R.id.action_to_UploadGifFragment);
             }
