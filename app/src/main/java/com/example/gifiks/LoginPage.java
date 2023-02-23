@@ -71,7 +71,7 @@ public class LoginPage extends Fragment {
     }
 
     /*
-        Validate login credentials to sign into users account. Returns true if login credentials are
+        Validates login credentials to sign into users account. Returns true if login credentials are
         correct, returns false if login credentials are wrong.
      */
     private boolean validateLoginCredentials(String username, String password, AssetManager assetManager) throws IOException {
