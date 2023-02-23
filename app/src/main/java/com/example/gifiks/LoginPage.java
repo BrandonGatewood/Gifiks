@@ -36,8 +36,7 @@ public class LoginPage extends Fragment {
 
         final EditText viewUsername = view.findViewById(R.id.loginUsername);
         final EditText viewPassword = view.findViewById(R.id.loginPassword);
-        final AssetManager assetManager;
-        assetManager = Objects.requireNonNull(getActivity()).getAssets();
+        final AssetManager assetManager = Objects.requireNonNull(getActivity()).getAssets();
 
         binding.createAccount.setOnClickListener(view12 -> NavHostFragment.findNavController(LoginPage.this)
                 .navigate(R.id.action_to_CreateAccountFragment));
@@ -75,7 +74,8 @@ public class LoginPage extends Fragment {
         correct, returns false if login credentials are wrong.
      */
     private boolean validateLoginCredentials(String username, String password, AssetManager assetManager) throws IOException {
-        InputStream is = assetManager.open("LoginCredentials.txt");
+        InputStream is = assetManager.open("accounts.txt");
+
         try (
         BufferedReader br = new BufferedReader(new InputStreamReader(is))
         ) {
