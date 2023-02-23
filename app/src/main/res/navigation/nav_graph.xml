@@ -26,7 +26,7 @@
 
         <action
             android:id="@+id/action_to_CreateAccountFragment"
-            app:destination="@id/CreateAccountFragment" />
+            app:destination="@id/GalleryFragment" />
     </fragment>
 
     <fragment
@@ -38,4 +38,9 @@
             android:id="@+id/action_to_UploadGifFragment"
             app:destination="@id/UploadGifFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/GalleryFragment"
+        android:name="com.example.gifiks.Gallery"
+        android:label="@string/Gallery_fragment_label"
+        tools:layout="@layout/fragment_gallery"></fragment>
 </navigation>
