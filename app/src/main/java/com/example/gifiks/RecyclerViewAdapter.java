@@ -8,15 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.bumptech.glide.Glide;
 import java.io.File;
 import java.util.ArrayList;
-import com.example.gifiks.Gallery;
-import com.example.gifiks.databinding.GalleryLayoutBinding;
+
+import com.bumptech.glide.Glide;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
     // creating a variable for our context and array list.
@@ -33,8 +31,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate Layout in this method which we have created.
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gallery_layout, parent, false);
-        return new RecyclerViewHolder(view);
+        View cardView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card, parent, false);
+        return new RecyclerViewHolder(cardView);
     }
 
     @Override
@@ -45,11 +43,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         File imgFile = new File(imagePathArrayList.get(position));
 
         // on below line we are checking if the file exists or not.
-/*        if (imgFile.exists()) {
+       if (imgFile.exists()) {
 
             // if the file exists then we are displaying that file in our image view using picasso library.
             //Picasso.get().load(imgFile).placeholder(R.drawable.ic_launcher_background).into(holder.imageIV);
-            Glide.with(Gallery).load(imgFile).placeholder(R.drawable.ic_launcher_background).into(holder.imageIV);
+            Glide.with(context).load(imgFile).placeholder(R.drawable.ic_launcher_background).into(holder.imageIV);
 
             // on below line we are adding click listener to our item of recycler view.
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +64,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     context.startActivity(i);
                 }
             });
-        }*/
+        }
     }
 
     @Override
