@@ -1,6 +1,5 @@
 package com.example.gifiks;
 
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +14,12 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.gifiks.databinding.ActivityCreateAccountBinding;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.Reader;
 import java.util.Objects;
 
 
@@ -40,7 +42,6 @@ public class CreateAccount extends Fragment {
         final EditText viewUsername = view.findViewById(R.id.createAnAccountUsername);
         final EditText viewEmail = view.findViewById(R.id.createAnAccountEmail);
         final EditText viewPassword = view.findViewById(R.id.createAnAccountPassword);
-        final AssetManager assetManager = Objects.requireNonNull(getActivity()).getAssets();
 
         binding.createAccount.setOnClickListener(view1 -> {
             String username = viewUsername.getText().toString();
@@ -60,7 +61,7 @@ public class CreateAccount extends Fragment {
             else {
                 // Check if username is already take
                 try {
-                    if(checkUsernameAndEmail(username, email, assetManager, view1)) {
+                    if(checkUsernameAndEmail(username, email, view1)) {
                         // Add new account to database
                         String welcome = "Welcome to Gifiks, " + username;
                         addNewAccount(username, email, password);
@@ -80,10 +81,12 @@ public class CreateAccount extends Fragment {
         Checks database (.txt file) if username is already taken. Returns true if not taken and false
         if taken.
      */
-    private boolean checkUsernameAndEmail(String username, String email, AssetManager assetManager, View view1) throws IOException {
-        InputStream is = assetManager.open("accounts.txt");
+    private boolean checkUsernameAndEmail(String username, String email, View view1) throws IOException {
+        File directory = Objects.requireNonNull(this.getContext()).getDataDir();
+        File accounts = new File(directory, "accounts.txt");
+        Reader reader = new FileReader(accounts);
         try (
-                BufferedReader br = new BufferedReader(new InputStreamReader(is))
+                BufferedReader br = new BufferedReader(reader)
         ) {
             String toParse = br.readLine();
 
@@ -114,8 +117,23 @@ public class CreateAccount extends Fragment {
     /*
         Add new account to database (.txt file)
     */
-    private void addNewAccount(String username, String email, String password) {
+    private void addNewAccount(String username, String email, String password) throws IOException {
+        File directory = Objects.requireNonNull(this.getContext()).getDataDir();
+        File accounts = new File(directory, "accounts.txt");
 
+        try (
+                PrintWriter pw = new PrintWriter(new FileWriter(accounts, true))
+        ){
+            pw.println(username + ";" + email + ";" + password);
+            pw.flush();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

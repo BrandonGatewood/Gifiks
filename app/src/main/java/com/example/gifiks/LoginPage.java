@@ -1,6 +1,5 @@
 package com.example.gifiks;
 
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +14,10 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.gifiks.databinding.ActivityLoginPageBinding;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Objects;
 
 public class LoginPage extends Fragment {
@@ -36,7 +36,6 @@ public class LoginPage extends Fragment {
 
         final EditText viewUsername = view.findViewById(R.id.loginUsername);
         final EditText viewPassword = view.findViewById(R.id.loginPassword);
-        final AssetManager assetManager = Objects.requireNonNull(getActivity()).getAssets();
 
         binding.createAccount.setOnClickListener(view12 -> NavHostFragment.findNavController(LoginPage.this)
                 .navigate(R.id.action_to_CreateAccountFragment));
@@ -55,7 +54,7 @@ public class LoginPage extends Fragment {
             else {
                 // Validate login credentials
                 try {
-                    if(validateLoginCredentials(username, password, assetManager)) {
+                    if(validateLoginCredentials(username, password)) {
                         NavHostFragment.findNavController(LoginPage.this)
                                 .navigate(R.id.action_to_UploadGifFragment);
                     }
@@ -73,11 +72,13 @@ public class LoginPage extends Fragment {
         Validates login credentials to sign into users account. Returns true if login credentials are
         correct, returns false if login credentials are wrong.
      */
-    private boolean validateLoginCredentials(String username, String password, AssetManager assetManager) throws IOException {
-        InputStream is = assetManager.open("accounts.txt");
+    private boolean validateLoginCredentials(String username, String password) throws IOException {
+        File directory = Objects.requireNonNull(this.getContext()).getDataDir();
+        File accounts = new File(directory, "accounts.txt");
+        Reader reader = new FileReader(accounts);
 
         try (
-        BufferedReader br = new BufferedReader(new InputStreamReader(is))
+                BufferedReader br = new BufferedReader(reader)
         ) {
             String toParse = br.readLine();
 
