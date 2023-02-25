@@ -54,33 +54,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 context.startActivity(i);
             }
         });*/
-/*        // on below line we are getting the file from the
-        // path which we have stored in our list.
-        File imgFile = new File(imagePathArrayList.get(position));
-
-        // on below line we are checking if the file exists or not.
-       if (imgFile.exists()) {
-
-            // if the file exists then we are displaying that file in our image view using picasso library.
-            //Picasso.get().load(imgFile).placeholder(R.drawable.ic_launcher_background).into(holder.imageIV);
-            Glide.with(context).load(imgFile).placeholder(R.drawable.ic_launcher_background).into(holder.imageIV);
-
-            // on below line we are adding click listener to our item of recycler view.
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    // inside on click listener we are creating a new intent
-                    Intent i = new Intent(context, GifDetailActivity.class);
-
-                    // on below line we are passing the image path to our new activity.
-                    i.putExtra("imgPath", imagePathArrayList.get(holder.getBindingAdapterPosition()));
-
-                    // at last we are starting our activity.
-                    context.startActivity(i);
-                }
-            });
-        }*/
     }
 
     @Override
