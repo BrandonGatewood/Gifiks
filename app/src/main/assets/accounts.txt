@@ -3,4 +3,4 @@ bg;brandon.g@pdx.edu;groupProject1#
 Jaafar Rodgers;jaafarrodgers@pdx.edu;rodgers11!
 mrfiszbi;fiszbi@gmail.com;mrmrfizsbi123@
 finn;finn@gmail.com;123
-ja;jaf@pdx.edu;jaja1
+ja;jaf@pdx.edu;jaja

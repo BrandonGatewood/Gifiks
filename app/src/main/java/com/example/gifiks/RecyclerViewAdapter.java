@@ -37,8 +37,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
+        File imgFile = new File(imagePathArrayList.get(position));
+        if (imgFile.exists()) {
+            Glide.with(holder.imageIV).load(imgFile).into(holder.imageIV);
+        }
 
-        // on below line we are getting the file from the
+/*        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // inside on click listener we are creating a new intent
+                Intent i = new Intent(context, GifDetailActivity.class);
+
+                // on below line we are passing the image path to our new activity.
+                i.putExtra("imgPath", imagePathArrayList.get(holder.getBindingAdapterPosition()));
+
+                // at last we are starting our activity.
+                context.startActivity(i);
+            }
+        });*/
+/*        // on below line we are getting the file from the
         // path which we have stored in our list.
         File imgFile = new File(imagePathArrayList.get(position));
 
@@ -58,13 +76,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     Intent i = new Intent(context, GifDetailActivity.class);
 
                     // on below line we are passing the image path to our new activity.
-                    i.putExtra("imgPath", imgFile.getPath());
+                    i.putExtra("imgPath", imagePathArrayList.get(holder.getBindingAdapterPosition()));
 
                     // at last we are starting our activity.
                     context.startActivity(i);
                 }
             });
-        }
+        }*/
     }
 
     @Override

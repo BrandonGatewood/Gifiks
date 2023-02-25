@@ -25,13 +25,19 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import com.example.gifiks.databinding.FragmentGalleryBinding;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public class Gallery extends Fragment {
     private FragmentGalleryBinding binding;
     private ArrayList<String> imagePath;
     private RecyclerView imagesRV;
     private RecyclerViewAdapter imageRVAdapter;
+
+    //final AssetManager assetManager = Objects.requireNonNull(getActivity()).getAssets();
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -42,16 +48,29 @@ public class Gallery extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+/*        try {
+            String[] list = assetManager.list("Gifs/Jaafar");
+            List<String> newlist = Arrays.asList(list);
+            imagePath = new ArrayList<>(newlist);
+            imagesRV = (RecyclerView) getView().findViewById(R.id.idRVImages);
+            prepareRecyclerView();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }*/
 
         imagePath = new ArrayList<>();
         imagesRV = (RecyclerView) getView().findViewById(R.id.idRVImages);
-        imagePath.add("C:\\Users\\jaafa\\Documents\\GitHub\\Gifiks\\app\\src\\main\\assets\\Gifs\\Jaafar\\darth vader dark side.gif");
+        imagePath.add("Gifs/Jaafar/darth_vader_dark_side.gif");
+        imagePath.add("Gifs/Jaafar/darth_vader_impressed.gif");
+        imagePath.add("Gifs/Jaafar/darth_vader_motivation.gif");
+        imagePath.add("Gifs/Jaafar/darth_vader_view.gif");
 
         prepareRecyclerView();
+
+
     }
 
     private void prepareRecyclerView() {
-
         // in this method we are preparing our recycler view.
         // on below line we are initializing our adapter class.
         imageRVAdapter = new RecyclerViewAdapter(this.getContext(), imagePath);
