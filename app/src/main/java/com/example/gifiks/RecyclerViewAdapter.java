@@ -37,10 +37,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        File imgFile = new File(imagePathArrayList.get(position));
-        if (imgFile.exists()) {
-            Glide.with(holder.imageIV).load(imgFile).into(holder.imageIV);
-        }
+        Glide.with(holder.imageIV).load(imagePathArrayList.get(position)).into(holder.imageIV);
+
 
 /*        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

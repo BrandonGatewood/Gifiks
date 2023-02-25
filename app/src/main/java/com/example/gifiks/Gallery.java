@@ -37,7 +37,6 @@ public class Gallery extends Fragment {
     private RecyclerView imagesRV;
     private RecyclerViewAdapter imageRVAdapter;
 
-    //final AssetManager assetManager = Objects.requireNonNull(getActivity()).getAssets();
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -48,24 +47,28 @@ public class Gallery extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-/*        try {
-            String[] list = assetManager.list("Gifs/Jaafar");
+        final AssetManager assetManager = Objects.requireNonNull(getActivity()).getAssets();
+        try {
+            String[] list =  assetManager.list("Gifs/Jaafar");
+            for (int i = 0; i < list.length; i++){
+                list[i] = "file:///android_asset/Gifs/Jaafar/" + list[i];
+            }
             List<String> newlist = Arrays.asList(list);
             imagePath = new ArrayList<>(newlist);
             imagesRV = (RecyclerView) getView().findViewById(R.id.idRVImages);
             prepareRecyclerView();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }*/
+        }
 
-        imagePath = new ArrayList<>();
+/*        imagePath = new ArrayList<>();
         imagesRV = (RecyclerView) getView().findViewById(R.id.idRVImages);
-        imagePath.add("Gifs/Jaafar/darth_vader_dark_side.gif");
-        imagePath.add("Gifs/Jaafar/darth_vader_impressed.gif");
-        imagePath.add("Gifs/Jaafar/darth_vader_motivation.gif");
-        imagePath.add("Gifs/Jaafar/darth_vader_view.gif");
+        imagePath.add("file:///android_asset/Gifs/Jaafar/darth_vader_dark_side.gif");
+        imagePath.add("file:///android_asset/Gifs/Jaafar/darth_vader_impressed.gif");
+        imagePath.add("file:///android_asset/Gifs/Jaafar/darth_vader_motivation.gif");
+        imagePath.add("file:///android_asset/Gifs/Jaafar/darth_vader_view.gif");
 
-        prepareRecyclerView();
+        prepareRecyclerView();*/
 
 
     }
