@@ -10,7 +10,6 @@
     <string name="Gallery_fragment_label">Gallery</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="AddGif">AddGif</string>
@@ -23,6 +22,9 @@
     <string name="create_account">create account</string>
     <string name="gifiks">Gifiks</string>
     <string name="login">Login</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="upload_gif">Upload gif</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
 </resources>
