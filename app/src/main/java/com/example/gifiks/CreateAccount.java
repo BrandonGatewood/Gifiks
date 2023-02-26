@@ -68,7 +68,7 @@ public class CreateAccount extends Fragment {
                         Toast.makeText(view1.getContext(), welcome , Toast.LENGTH_LONG).show();
 
                         NavHostFragment.findNavController(CreateAccount.this)
-                                .navigate(R.id.action_to_UploadGifFragment);
+                                .navigate(R.id.action_to_HomePageFragment);
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);

@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -37,29 +38,29 @@ public class LoginPage extends Fragment {
         final EditText viewUsername = view.findViewById(R.id.loginUsername);
         final EditText viewPassword = view.findViewById(R.id.loginPassword);
 
-        binding.createAccount.setOnClickListener(view12 -> NavHostFragment.findNavController(LoginPage.this)
+        binding.createAccount.setOnClickListener(view1 -> NavHostFragment.findNavController(LoginPage.this)
                 .navigate(R.id.action_to_CreateAccountFragment));
 
-        binding.login.setOnClickListener(view1 -> {
+        binding.login.setOnClickListener(view2 -> {
             String username = viewUsername.getText().toString();
             String password = viewPassword.getText().toString();
 
             // Check if username and password has been entered
             if(username.isEmpty()) {
-                Toast.makeText(view1.getContext(), "Missing Username", Toast.LENGTH_LONG).show();
+                Toast.makeText(view2.getContext(), "Missing Username", Toast.LENGTH_LONG).show();
             }
             else if(password.isEmpty()) {
-                Toast.makeText(view1.getContext(), "Missing Password", Toast.LENGTH_LONG).show();
+                Toast.makeText(view2.getContext(), "Missing Password", Toast.LENGTH_LONG).show();
             }
             else {
                 // Validate login credentials
                 try {
                     if(validateLoginCredentials(username, password)) {
                         NavHostFragment.findNavController(LoginPage.this)
-                                .navigate(R.id.action_to_UploadGifFragment);
+                                .navigate(R.id.action_to_HomePageFragment);
                     }
                     else {
-                        Toast.makeText(view1.getContext(), "Username or password is incorrect", Toast.LENGTH_LONG).show();
+                        Toast.makeText(view2.getContext(), "Username or password is incorrect", Toast.LENGTH_LONG).show();
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -100,6 +101,19 @@ public class LoginPage extends Fragment {
         // No match found
 
         return false;
+    }
+
+    // Both functions, onResume() and onStop() will remove back button from action bar.
+    @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()). setDisplayHomeAsUpEnabled(false);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()). setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

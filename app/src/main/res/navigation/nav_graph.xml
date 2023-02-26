@@ -12,8 +12,8 @@
         tools:layout="@layout/activity_login_page">
 
         <action
-            android:id="@+id/action_to_UploadGifFragment"
-            app:destination="@id/UploadGifFragment" />
+            android:id="@+id/action_to_HomePageFragment"
+            app:destination="@id/HomePageFragment" />
         <action
             android:id="@+id/action_to_CreateAccountFragment"
             app:destination="@id/CreateAccountFragment" />
@@ -25,17 +25,43 @@
         tools:layout="@layout/upload_gif">
 
         <action
-            android:id="@+id/action_to_CreateAccountFragment"
-            app:destination="@id/CreateAccountFragment" />
+            android:id="@+id/action_to_HomePageFragment"
+            app:destination="@id/HomePageFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/CreateAccountFragment"
         android:name="com.example.gifiks.CreateAccount"
         android:label="@string/Create_Account_fragment_label"
         tools:layout="@layout/activity_create_account">
         <action
+            android:id="@+id/action_to_HomePageFragment"
+            app:destination="@id/HomePageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/HomePageFragment"
+        android:name="com.example.gifiks.HomePage"
+        android:label="@string/gifiks"
+        tools:layout="@layout/activity_home_page">
+        <action
             android:id="@+id/action_to_UploadGifFragment"
             app:destination="@id/UploadGifFragment" />
+        <action
+            android:id="@+id/action_to_ProfilePageFragment"
+            app:destination="@id/ProfilePageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ProfilePageFragment"
+        android:name="com.example.gifiks.ProfilePage"
+        android:label="ProfilePage"
+        tools:layout="@layout/activity_profile_page">
+        <action
+            android:id="@+id/action_to_UploadGifFragment"
+            app:destination="@id/UploadGifFragment" />
+        <action
+            android:id="@+id/action_to_HomePageFragment"
+            app:destination="@id/HomePageFragment" />
+        <action
+            android:id="@+id/action_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
     </fragment>
 </navigation>
