@@ -25,8 +25,8 @@
         tools:layout="@layout/upload_gif">
 
         <action
-            android:id="@+id/action_to_HomePageFragment"
-            app:destination="@id/HomePageFragment" />
+            android:id="@+id/action_to_CreateAccountFragment"
+            app:destination="@id/GalleryFragment" />
     </fragment>
     <fragment
         android:id="@+id/CreateAccountFragment"
@@ -64,4 +64,10 @@
             android:id="@+id/action_to_LoginFragment"
             app:destination="@id/LoginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/GalleryFragment"
+        android:name="com.example.gifiks.Gallery"
+        android:label="@string/Gallery_fragment_label"
+        tools:layout="@layout/fragment_gallery"/>
+
 </navigation>

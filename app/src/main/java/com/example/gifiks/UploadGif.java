@@ -81,5 +81,4 @@ public class UploadGif extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }
