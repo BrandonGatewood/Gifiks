@@ -35,8 +35,5 @@ public class GifDetailActivity extends AppCompatActivity {
         imageView = findViewById(R.id.idIVImage);
 
         Glide.with(this).load(imgPath).placeholder(R.drawable.ic_launcher_background).into(imageView);
-
     }
-
-
 }
