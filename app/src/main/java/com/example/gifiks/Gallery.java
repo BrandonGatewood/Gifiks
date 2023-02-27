@@ -60,29 +60,13 @@ public class Gallery extends Fragment {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-/*        imagePath = new ArrayList<>();
-        imagesRV = (RecyclerView) getView().findViewById(R.id.idRVImages);
-        imagePath.add("file:///android_asset/Gifs/Jaafar/darth_vader_dark_side.gif");
-        imagePath.add("file:///android_asset/Gifs/Jaafar/darth_vader_impressed.gif");
-        imagePath.add("file:///android_asset/Gifs/Jaafar/darth_vader_motivation.gif");
-        imagePath.add("file:///android_asset/Gifs/Jaafar/darth_vader_view.gif");
-
-        prepareRecyclerView();*/
-
-
     }
 
     private void prepareRecyclerView() {
-        // in this method we are preparing our recycler view.
-        // on below line we are initializing our adapter class.
         imageRVAdapter = new RecyclerViewAdapter(this.getContext(), imagePath);
 
-        // on below line we are creating a new grid layout manager.
         GridLayoutManager manager = new GridLayoutManager(this.getContext(), 4);
 
-        // on below line we are setting layout
-        // manager and adapter to our recycler view.
         imagesRV.setLayoutManager(manager);
         imagesRV.setAdapter(imageRVAdapter);
     }

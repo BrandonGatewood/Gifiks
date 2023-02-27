@@ -68,5 +68,6 @@
         android:id="@+id/GalleryFragment"
         android:name="com.example.gifiks.Gallery"
         android:label="@string/Gallery_fragment_label"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery"/>
+
 </navigation>
