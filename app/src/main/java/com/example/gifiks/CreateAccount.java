@@ -15,16 +15,20 @@ import com.example.gifiks.databinding.ActivityCreateAccountBinding;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.Objects;
 
 
 public class CreateAccount extends Fragment {
+    private final ArrayList<Account> allAccounts = new ArrayList<>();
     private ActivityCreateAccountBinding binding;
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -38,15 +42,23 @@ public class CreateAccount extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         final EditText viewUsername = view.findViewById(R.id.createAnAccountUsername);
         final EditText viewEmail = view.findViewById(R.id.createAnAccountEmail);
         final EditText viewPassword = view.findViewById(R.id.createAnAccountPassword);
+        File directory = Objects.requireNonNull(this.getContext()).getDataDir();
+        File accountsFile = new File(directory, "accounts.txt");
+
+        try {
+            parseAccountsFile(accountsFile);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         binding.createAccount.setOnClickListener(view1 -> {
             String username = viewUsername.getText().toString();
             String email = viewEmail.getText().toString();
             String password = viewPassword.getText().toString();
+
 
             // Check if username, email, and password has been entered
             if(username.isEmpty()) {
@@ -61,14 +73,24 @@ public class CreateAccount extends Fragment {
             else {
                 // Check if username is already take
                 try {
-                    if(checkUsernameAndEmail(username, email, view1)) {
-                        // Add new account to database
-                        String welcome = "Welcome to Gifiks, " + username;
-                        addNewAccount(username, email, password);
-                        Toast.makeText(view1.getContext(), welcome , Toast.LENGTH_LONG).show();
+                    if(!checkUsername(username)) {
+                        Toast.makeText(view1.getContext(), "Username is taken", Toast.LENGTH_LONG).show();
+                    }
+                    if(!checkEmail(email)) {
+                        Toast.makeText(view1.getContext(), "Email is taken", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        String promptWelcomeMessage = "Welcome to Gifiks, " + username;
 
+                        Account newAccount = new Account(username, email, password);
+                        addNewAccountToTextFile(newAccount, accountsFile);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("AccountInfo", newAccount);
+
+                        Toast.makeText(view1.getContext(), promptWelcomeMessage, Toast.LENGTH_LONG).show();
                         NavHostFragment.findNavController(CreateAccount.this)
-                                .navigate(R.id.action_to_HomePageFragment);
+                                .navigate(R.id.action_to_HomePageFragment, bundle);
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -78,13 +100,11 @@ public class CreateAccount extends Fragment {
     }
 
     /*
-        Checks database (.txt file) if username is already taken. Returns true if not taken and false
-        if taken.
+        Parses through database (.txt file) and save all accounts into an array of Accounts.
      */
-    private boolean checkUsernameAndEmail(String username, String email, View view1) throws IOException {
-        File directory = Objects.requireNonNull(this.getContext()).getDataDir();
-        File accounts = new File(directory, "accounts.txt");
-        Reader reader = new FileReader(accounts);
+    private void parseAccountsFile(File accountsFile) throws FileNotFoundException {
+        Reader reader = new FileReader(accountsFile);
+
         try (
                 BufferedReader br = new BufferedReader(reader)
         ) {
@@ -94,37 +114,48 @@ public class CreateAccount extends Fragment {
                 // Index 0 is username
                 // Index 1 is email
                 // Index 2 is password
-                String[] account = toParse.split(";");
+                String[] anAccount = toParse.split(";");
 
-                // Username taken
-                if(username.equals(account[0])) {
-                    Toast.makeText(view1.getContext(), "Username is taken", Toast.LENGTH_LONG).show();
-                    return false;
-                }
-                // Email taken
-                if(email.equals(account[1])) {
-                    Toast.makeText(view1.getContext(), "Email is taken", Toast.LENGTH_LONG).show();
-                    return false;
-                }
-
+                Account account = new Account(anAccount[0], anAccount[1], anAccount[2]);
+                allAccounts.add(account);
                 toParse = br.readLine();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /*
+        Check allAccounts array to see if username has been taken. Returns true if username is not
+        taken. Returns false if username is taken.
+     */
+    private boolean checkUsername(String username) {
+        for(Account anAccount : allAccounts) {
+            if(anAccount.getUsername().equals(username))
+                return false;
+        }
         return true;
     }
     /*
+       Check allAccounts array to see if email has been taken. Returns true if email is not
+       taken. Returns false if email is taken.
+    */
+    private boolean checkEmail(String email) {
+        for(Account anAccount : allAccounts) {
+            if(anAccount.getEmail().equals(email))
+                return false;
+        }
+        return true;
+    }
+
+    /*
         Add new account to database (.txt file)
     */
-    private void addNewAccount(String username, String email, String password) throws IOException {
-        File directory = Objects.requireNonNull(this.getContext()).getDataDir();
-        File accounts = new File(directory, "accounts.txt");
-
+    private void addNewAccountToTextFile(Account newAccount, File accountsFile) throws IOException {
         try (
-                PrintWriter pw = new PrintWriter(new FileWriter(accounts, true))
+                PrintWriter pw = new PrintWriter(new FileWriter(accountsFile, true))
         ){
-            pw.println(username + ";" + email + ";" + password);
+            pw.println(newAccount.getUsername() + ";" + newAccount.getEmail() + ";" + newAccount.getPassword());
             pw.flush();
         }
         catch (Exception e) {

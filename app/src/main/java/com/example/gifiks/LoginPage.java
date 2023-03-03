@@ -45,7 +45,6 @@ public class LoginPage extends Fragment {
             String username = viewUsername.getText().toString();
             String password = viewPassword.getText().toString();
 
-            // Check if username and password has been entered
             if(username.isEmpty()) {
                 Toast.makeText(view2.getContext(), "Missing Username", Toast.LENGTH_LONG).show();
             }
@@ -55,9 +54,19 @@ public class LoginPage extends Fragment {
             else {
                 // Validate login credentials
                 try {
-                    if(validateLoginCredentials(username, password)) {
+                    Account usersAccount = validateLoginCredentials(username, password);
+                    if(usersAccount != null) {
+                        /*
+                            Bundle is used to pass Account objects through fragments, with a key and
+                            value.
+                            key = "AccountInfo"
+                            value = usersAccount
+                        */
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("AccountInfo", usersAccount);
+
                         NavHostFragment.findNavController(LoginPage.this)
-                                .navigate(R.id.action_to_HomePageFragment);
+                                .navigate(R.id.action_to_HomePageFragment, bundle);
                     }
                     else {
                         Toast.makeText(view2.getContext(), "Username or password is incorrect", Toast.LENGTH_LONG).show();
@@ -70,19 +79,19 @@ public class LoginPage extends Fragment {
     }
 
     /*
-        Validates login credentials to sign into users account. Returns true if login credentials are
-        correct, returns false if login credentials are wrong.
+        Validates login credentials to sign into users account. If login credentials are correct,
+        then it returns an Account object for that user. If login credentials are incorrect, then
+        it returns null.
      */
-    private boolean validateLoginCredentials(String username, String password) throws IOException {
+    private Account validateLoginCredentials(String username, String password) throws IOException {
         File directory = Objects.requireNonNull(this.getContext()).getDataDir();
-        File accounts = new File(directory, "accounts.txt");
-        Reader reader = new FileReader(accounts);
-
+        File accountsFile = new File(directory, "accounts.txt");
+        Reader reader = new FileReader(accountsFile);
         try (
                 BufferedReader br = new BufferedReader(reader)
         ) {
             String toParse = br.readLine();
-
+            Account usersAccount;
             while(toParse != null) {
                 // Index 0 is username
                 // Index 1 is email
@@ -90,17 +99,18 @@ public class LoginPage extends Fragment {
                 String[] loginCredentials = toParse.split(";");
 
                 // Found a match, login credentials are correct
-                if(username.equals(loginCredentials[0]) && password.equals(loginCredentials[2]))
-                    return true;
-
+                if(username.equals(loginCredentials[0]) && password.equals(loginCredentials[2])) {
+                    usersAccount = new Account(loginCredentials[0], loginCredentials[1], loginCredentials[2]);
+                    return usersAccount;
+                }
                 toParse = br.readLine();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        // No match found
 
-        return false;
+        // No match found
+        return null;
     }
 
     // Both functions, onResume() and onStop() will remove back button from action bar.
