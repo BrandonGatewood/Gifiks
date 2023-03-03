@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.gifiks.databinding.ActivityHomePageBinding;
 
@@ -29,13 +30,29 @@ public class HomePage extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // bundle contains Account object
+        Bundle bundle = this.getArguments();
+        Account receivedAccount = Objects.requireNonNull(bundle).getParcelable("AccountInfo");
+
         // Move to Profile Page
-        binding.profilePage.setOnClickListener(view1 -> NavHostFragment.findNavController(HomePage.this)
-                .navigate(R.id.action_to_ProfilePageFragment));
+        binding.profilePage.setOnClickListener(view1 -> {
+            String message = "Username: " + receivedAccount.getUsername() + "\nEmail: " + receivedAccount.getEmail();
+            Toast.makeText(view1.getContext(), message, Toast.LENGTH_LONG).show();
+
+
+            NavHostFragment.findNavController(HomePage.this)
+                    .navigate(R.id.action_to_ProfilePageFragment, bundle);
+        });
+
 
         // Move to upload gif page
-        binding.uploadGif.setOnClickListener(view2 -> NavHostFragment.findNavController(HomePage.this)
-                .navigate(R.id.action_to_UploadGifFragment));
+        binding.uploadGif.setOnClickListener(view2 -> {
+            String message = "Username: " + receivedAccount.getUsername() + "\nEmail: " + receivedAccount.getEmail();
+            Toast.makeText(view2.getContext(), message, Toast.LENGTH_LONG).show();
+
+            NavHostFragment.findNavController(HomePage.this)
+                    .navigate(R.id.action_to_UploadGifFragment, bundle);
+        });
 
     }
 
