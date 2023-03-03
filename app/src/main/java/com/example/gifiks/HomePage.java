@@ -41,13 +41,18 @@ public class HomePage extends Fragment {
 
 
             NavHostFragment.findNavController(HomePage.this)
-                    .navigate(R.id.action_to_ProfilePageFragment);
+                    .navigate(R.id.action_to_ProfilePageFragment, bundle);
         });
 
 
         // Move to upload gif page
-        binding.uploadGif.setOnClickListener(view2 -> NavHostFragment.findNavController(HomePage.this)
-                .navigate(R.id.action_to_UploadGifFragment));
+        binding.uploadGif.setOnClickListener(view2 -> {
+            String message = "Username: " + receivedAccount.getUsername() + "\nEmail: " + receivedAccount.getEmail();
+            Toast.makeText(view2.getContext(), message, Toast.LENGTH_LONG).show();
+
+            NavHostFragment.findNavController(HomePage.this)
+                    .navigate(R.id.action_to_UploadGifFragment, bundle);
+        });
 
     }
 
