@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.gifiks.databinding.FragmentGalleryBinding;
+import com.example.gifiks.Account;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -53,23 +54,13 @@ public class Gallery extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //imagePaths = new ArrayList<>();
         imagesRV = (RecyclerView) getView().findViewById(R.id.idRVImages);
-/*        final AssetManager assetManager = Objects.requireNonNull(getActivity()).getAssets();
+
+        Bundle bundle = this.getArguments();
+        Account receivedAccount = Objects.requireNonNull(bundle).getParcelable("AccountInfo");
+
         try {
-            String[] list =  assetManager.list("Gifs/Jaafar");
-            for (int i = 0; i < list.length; i++){
-                list[i] = "file:///android_asset/Gifs/Jaafar/" + list[i];
-            }
-            List<String> newlist = Arrays.asList(list);
-            imagePath = new ArrayList<>(newlist);
-            imagesRV = (RecyclerView) getView().findViewById(R.id.idRVImages);
-            prepareRecyclerView();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
-        try {
-            getGifs("Jaafar");
+            getGifs(receivedAccount.getUsername());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
