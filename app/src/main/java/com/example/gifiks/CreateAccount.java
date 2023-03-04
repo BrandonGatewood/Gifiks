@@ -88,6 +88,8 @@ public class CreateAccount extends Fragment {
                         Bundle bundle = new Bundle();
                         bundle.putParcelable("AccountInfo", newAccount);
 
+                        createGifdirectory(username);
+
                         Toast.makeText(view1.getContext(), promptWelcomeMessage, Toast.LENGTH_LONG).show();
                         NavHostFragment.findNavController(CreateAccount.this)
                                 .navigate(R.id.action_to_HomePageFragment, bundle);
@@ -97,6 +99,16 @@ public class CreateAccount extends Fragment {
                 }
             }
         });
+    }
+
+    private void createGifdirectory(String username) {
+        String user = "Gifs/" + username;
+        File directory = Objects.requireNonNull(this.getContext()).getDataDir();
+        File gifdirectory = new File(directory, user);
+        if (!gifdirectory.exists()) {
+            gifdirectory.mkdirs();
+        }
+
     }
 
     /*

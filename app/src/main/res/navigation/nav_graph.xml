@@ -25,7 +25,7 @@
         tools:layout="@layout/upload_gif">
 
         <action
-            android:id="@+id/action_to_CreateAccountFragment"
+            android:id="@+id/action_to_GalleryFragment"
             app:destination="@id/GalleryFragment" />
     </fragment>
     <fragment

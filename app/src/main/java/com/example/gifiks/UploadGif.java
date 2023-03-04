@@ -19,6 +19,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.bumptech.glide.Glide;
 import com.example.gifiks.databinding.UploadGifBinding;
 
+import java.util.Objects;
+
 //to upload a gif it must be in the memory of the phone. one place to add them is at data/media/0/Pictures
 public class UploadGif extends Fragment {
     Button AddGif;
@@ -39,6 +41,9 @@ public class UploadGif extends Fragment {
         AddGif = (Button) getView().findViewById(R.id.AddGif);
         ViewGif = (ImageView) getView().findViewById(R.id.ViewGif);
 
+        Bundle bundle = this.getArguments();
+        Account receivedAccount = Objects.requireNonNull(bundle).getParcelable("AccountInfo");
+
         binding.AddGif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +54,7 @@ public class UploadGif extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(UploadGif.this)
-                        .navigate(R.id.action_to_CreateAccountFragment);
+                        .navigate(R.id.action_to_GalleryFragment, bundle);
             }
         });
     }
