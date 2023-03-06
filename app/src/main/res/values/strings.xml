@@ -28,4 +28,8 @@
     <string name="upload_gif">Upload gif</string>
     <string name="logout">Logout</string>
     <string name="profile">Profile</string>
+    <string name="homeBtn">Home</string>
+    <string name="upload">Upload</string>
+    <string name="profilebtn">Profile</string>
+    <string name="logoout">logoout</string>
 </resources>

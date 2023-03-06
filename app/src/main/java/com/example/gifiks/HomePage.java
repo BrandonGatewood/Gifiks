@@ -1,23 +1,23 @@
 package com.example.gifiks;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.example.gifiks.databinding.ActivityHomePageBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
 
 public class HomePage extends Fragment {
     private ActivityHomePageBinding binding;
+    BottomNavigationView bottomNavigationView;
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -33,26 +33,15 @@ public class HomePage extends Fragment {
         // bundle contains Account object
         Bundle bundle = this.getArguments();
         Account receivedAccount = Objects.requireNonNull(bundle).getParcelable("AccountInfo");
+        bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
 
-        // Move to Profile Page
-        binding.profilePage.setOnClickListener(view1 -> {
-            String message = "Username: " + receivedAccount.getUsername() + "\nEmail: " + receivedAccount.getEmail();
-            Toast.makeText(view1.getContext(), message, Toast.LENGTH_LONG).show();
+        // Use bottom nav bar to move to upload gif page
+        binding.bottomNavigationView.findViewById(R.id.profilePageIcon).setOnClickListener(view1 -> NavHostFragment.findNavController(HomePage.this)
+                .navigate(R.id.action_to_ProfilePageFragment, bundle));
 
-
-            NavHostFragment.findNavController(HomePage.this)
-                    .navigate(R.id.action_to_ProfilePageFragment, bundle);
-        });
-
-
-        // Move to upload gif page
-        binding.uploadGif.setOnClickListener(view2 -> {
-            String message = "Username: " + receivedAccount.getUsername() + "\nEmail: " + receivedAccount.getEmail();
-            Toast.makeText(view2.getContext(), message, Toast.LENGTH_LONG).show();
-
-            NavHostFragment.findNavController(HomePage.this)
-                    .navigate(R.id.action_to_UploadGifFragment, bundle);
-        });
+        // Use bottom nav bar to move to upload gif page
+        binding.bottomNavigationView.findViewById(R.id.uploadGifIcon).setOnClickListener(view2 -> NavHostFragment.findNavController(HomePage.this)
+                .navigate(R.id.action_to_UploadGifFragment, bundle));
 
     }
 
