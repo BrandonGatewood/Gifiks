@@ -8,22 +8,19 @@ import androidx.annotation.NonNull;
 public class Account implements Parcelable {
     private final String username;
     private final String email;
-    private final String password;
     
     // List of gif post account has made
     // private final ArrayList<posts> posts;
 
 
-    public Account(String username, String email, String password) {
+    public Account(String username, String email) {
         this.username = username;
         this.email = email;
-        this.password = password;
     }
 
     protected Account(Parcel in) {
         username = in.readString();
         email = in.readString();
-        password = in.readString();
     }
 
     public static final Creator<Account> CREATOR = new Creator<Account>() {
@@ -47,11 +44,6 @@ public class Account implements Parcelable {
         return this.email;
     }
 
-    public String getPassword() {
-        return this.password;
-    }
-
-
     @Override
     public int describeContents() {
         return 0;
@@ -61,6 +53,5 @@ public class Account implements Parcelable {
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeString(username);
         parcel.writeString(email);
-        parcel.writeString(password);
     }
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homePageIcon"
+        android:title="@string/homeBtn"
+        android:icon="@drawable/homepageicon_foreground"/>
+    <item
+        android:id="@+id/uploadGifIcon"
+        android:title="@string/upload"
+        android:icon="@drawable/uploadgificon_foreground"/>
+    <item
+        android:id="@+id/profilePageIcon"
+        android:title="@string/profilebtn"
+        android:icon="@drawable/profileicon_foreground"/>
+</menu>

@@ -82,8 +82,8 @@ public class CreateAccount extends Fragment {
                     else {
                         String promptWelcomeMessage = "Welcome to Gifiks, " + username;
 
-                        Account newAccount = new Account(username, email, password);
-                        addNewAccountToTextFile(newAccount, accountsFile);
+                        Account newAccount = new Account(username, email);
+                        addNewAccountToTextFile(newAccount, password, accountsFile);
 
                         Bundle bundle = new Bundle();
                         bundle.putParcelable("AccountInfo", newAccount);
@@ -128,7 +128,7 @@ public class CreateAccount extends Fragment {
                 // Index 2 is password
                 String[] anAccount = toParse.split(";");
 
-                Account account = new Account(anAccount[0], anAccount[1], anAccount[2]);
+                Account account = new Account(anAccount[0], anAccount[1]);
                 allAccounts.add(account);
                 toParse = br.readLine();
             }
@@ -163,11 +163,11 @@ public class CreateAccount extends Fragment {
     /*
         Add new account to database (.txt file)
     */
-    private void addNewAccountToTextFile(Account newAccount, File accountsFile) throws IOException {
+    private void addNewAccountToTextFile(Account newAccount, String password, File accountsFile) throws IOException {
         try (
                 PrintWriter pw = new PrintWriter(new FileWriter(accountsFile, true))
         ){
-            pw.println(newAccount.getUsername() + ";" + newAccount.getEmail() + ";" + newAccount.getPassword());
+            pw.println(newAccount.getUsername() + ";" + newAccount.getEmail() + ";" + password);
             pw.flush();
         }
         catch (Exception e) {
