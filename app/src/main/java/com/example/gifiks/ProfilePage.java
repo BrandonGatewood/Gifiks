@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,17 +11,21 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.gifiks.databinding.ActivityProfilePageBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
 
 
 public class ProfilePage extends Fragment {
     private ActivityProfilePageBinding binding;
+    BottomNavigationView bottomNavigationView;
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        setHasOptionsMenu(true);
         binding = ActivityProfilePageBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -34,23 +37,15 @@ public class ProfilePage extends Fragment {
         Bundle bundle = this.getArguments();
         Account receivedAccount = Objects.requireNonNull(bundle).getParcelable("AccountInfo");
 
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle(receivedAccount.getUsername());
+        bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
 
-        // Move to Home Page
-        binding.homePage.setOnClickListener(view1 -> {
-            String message = "Username: " + receivedAccount.getUsername() + "\nEmail: " + receivedAccount.getEmail();
-            Toast.makeText(view1.getContext(), message, Toast.LENGTH_LONG).show();
-
-            NavHostFragment.findNavController(ProfilePage.this)
-                    .navigate(R.id.action_to_HomePageFragment, bundle);
-        });
-        // Move to Upload Gif page
-        binding.uploadGif.setOnClickListener(view2 -> {
-            String message = "Username: " + receivedAccount.getUsername() + "\nEmail: " + receivedAccount.getEmail();
-            Toast.makeText(view2.getContext(), message, Toast.LENGTH_LONG).show();
-
-            NavHostFragment.findNavController(ProfilePage.this)
-                    .navigate(R.id.action_to_UploadGifFragment, bundle);
-        });
+        // Use bottom nav bar to move to Home Page
+        binding.bottomNavigationView.findViewById(R.id.homePageIcon).setOnClickListener(view1 -> NavHostFragment.findNavController(ProfilePage.this)
+                .navigate(R.id.action_to_HomePageFragment, bundle));
+        // Use bottom nav bar to move to upload gif page
+        binding.bottomNavigationView.findViewById(R.id.uploadGifIcon).setOnClickListener(view2 -> NavHostFragment.findNavController(ProfilePage.this)
+                .navigate(R.id.action_to_UploadGifFragment, bundle));
         // Move to login page
         binding.logout.setOnClickListener(view2 -> NavHostFragment.findNavController(ProfilePage.this)
                 .navigate(R.id.action_to_LoginFragment));
