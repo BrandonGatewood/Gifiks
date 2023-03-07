@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -35,5 +37,7 @@ public class GifDetailActivity extends AppCompatActivity {
         imageView = findViewById(R.id.idIVImage);
 
         Glide.with(this).load(imgPath).placeholder(R.drawable.ic_launcher_background).into(imageView);
+
+
     }
 }

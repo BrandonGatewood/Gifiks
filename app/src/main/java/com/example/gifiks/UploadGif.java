@@ -2,14 +2,19 @@ package com.example.gifiks;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -29,6 +34,7 @@ import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.gifiks.databinding.UploadGifBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,6 +52,8 @@ public class UploadGif extends Fragment {
 
     private UploadGifBinding binding;
 
+    BottomNavigationView bottomNavigationView;
+
     String user;
     File directory;
     File gifdirectory;
@@ -56,6 +64,7 @@ public class UploadGif extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        setHasOptionsMenu(true);
         binding = UploadGifBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -65,6 +74,8 @@ public class UploadGif extends Fragment {
         ViewGif = (ImageView) getView().findViewById(R.id.ViewGif);
 
         Bundle bundle = this.getArguments();
+        bottomNavigationView = (BottomNavigationView) getView().findViewById(R.id.bottomNavigationView);
+
         Account receivedAccount = Objects.requireNonNull(bundle).getParcelable("AccountInfo");
         user = "Gifs/" + receivedAccount.getUsername();
 
@@ -85,6 +96,13 @@ public class UploadGif extends Fragment {
                         .navigate(R.id.action_to_GalleryFragment, bundle);
             }
         });
+        // Use bottom nav bar to move to Profile page
+        binding.bottomNavigationView.findViewById(R.id.profilePageIcon).setOnClickListener(view1 -> NavHostFragment.findNavController(this)
+                .navigate(R.id.action_to_ProfilePageFragment, bundle));
+
+        // Use bottom nav bar to move to Home Page
+        binding.bottomNavigationView.findViewById(R.id.homePageIcon).setOnClickListener(view1 -> NavHostFragment.findNavController(this)
+                .navigate(R.id.action_to_HomePageFragment, bundle));
     }
 
     private void imageChooser(){
@@ -158,9 +176,12 @@ public class UploadGif extends Fragment {
 
     private void saveGif(Uri uri) {
         File newGifFile = new File(gifdirectory, gifName);
+        String filePath;
 
-        //String imageFilePath = FilenameUtils.getPath(uri);
-        File selectedGifFile = new File("/data/media/0/Pictures/" + gifName);
+        //File file = new File(uri.getPath());//create path from uri
+        //final String[] split = file.getPath().split(":");//split the path.
+        //filePath = split[1];//assign it to a string(your choice).
+        File selectedGifFile = new File(getImagePath(uri));
         if (newGifFile == null) {
             return;
         }
@@ -179,6 +200,19 @@ public class UploadGif extends Fragment {
         }
     }
 
+    private  String getImagePath(Uri contentURI){
+        String result;
+        Cursor cursor = this.getContext().getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

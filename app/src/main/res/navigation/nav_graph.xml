@@ -27,6 +27,12 @@
         <action
             android:id="@+id/action_to_GalleryFragment"
             app:destination="@id/GalleryFragment" />
+        <action
+            android:id="@+id/action_to_HomePageFragment"
+            app:destination="@id/HomePageFragment" />
+        <action
+            android:id="@+id/action_to_ProfilePageFragment"
+            app:destination="@id/ProfilePageFragment" />
     </fragment>
     <fragment
         android:id="@+id/CreateAccountFragment"
@@ -68,6 +74,15 @@
         android:id="@+id/GalleryFragment"
         android:name="com.example.gifiks.Gallery"
         android:label="@string/Gallery_fragment_label"
-        tools:layout="@layout/fragment_gallery"/>
-
+        tools:layout="@layout/fragment_gallery">
+        <action
+            android:id="@+id/action_to_HomePageFragment"
+            app:destination="@id/HomePageFragment" />
+        <action
+            android:id="@+id/action_to_UploadGifFragment"
+            app:destination="@id/UploadGifFragment" />
+        <action
+            android:id="@+id/action_to_ProfilePageFragment"
+            app:destination="@id/ProfilePageFragment" />
+    </fragment>
 </navigation>
