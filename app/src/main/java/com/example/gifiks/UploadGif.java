@@ -3,13 +3,17 @@ package com.example.gifiks;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.view.LayoutInflater;
@@ -20,6 +24,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -27,6 +32,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.load.resource.gif.GifDrawableResource;
 import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
@@ -36,14 +43,19 @@ import com.bumptech.glide.request.transition.Transition;
 import com.example.gifiks.databinding.UploadGifBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 //to upload a gif it must be in the memory of the phone. one place to add them is at data/media/0/Pictures
 public class UploadGif extends Fragment {
@@ -126,92 +138,31 @@ public class UploadGif extends Fragment {
                         gifName = selectedImageUri.substring(selectedImageUri.lastIndexOf("%2F") + 3);
                         Glide.with(this).asGif().load(selectedImageUri).into(ViewGif);
                         saveGif(uri);
-                        /*Target<File> fileTarget = Glide.with(this).asFile()
-                                .load(selectedImageUri)
-                                .listener(new RequestListener<File>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<File> target, boolean isFirstResource) {
-                                        return false;
-                                    }
-
-                                    @Override
-                                    public boolean onResourceReady(File resource, Object model, Target<File> target, DataSource dataSource, boolean isFirstResource) {
-                                        return false;
-                                    }
-                                })
-                                .into(new Target<File>() {
-                                    @Override
-                                    public void onStart() {}
-                                    @Override
-                                    public void onStop() {}
-                                    @Override
-                                    public void onDestroy() {}
-                                    @Override
-                                    public void onLoadStarted(@Nullable Drawable placeholder) {}
-                                    @Override
-                                    public void onLoadFailed(@Nullable Drawable errorDrawable) {}
-                                    @Override
-                                    public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
-                                        saveGif(resource);
-                                    }
-                                    @Override
-                                    public void onLoadCleared(@Nullable Drawable placeholder) {}
-                                    @Override
-                                    public void getSize(@NonNull SizeReadyCallback cb) {}
-                                    @Override
-                                    public void removeCallback(@NonNull SizeReadyCallback cb) {}
-                                    @Override
-                                    public void setRequest(@Nullable Request request) {}
-                                    @Nullable
-                                    @Override
-                                    public Request getRequest() {
-                                        return null;
-                                    }
-                                });*/
-                        // File gifFile = new File(fileTarget);
-                        //Glide.with(this).asGif().load(selectedImageUri).into(fileTarget);
                     }
                 }
             });
 
     private void saveGif(Uri uri) {
         File newGifFile = new File(gifdirectory, gifName);
-        String filePath;
 
-        //File file = new File(uri.getPath());//create path from uri
-        //final String[] split = file.getPath().split(":");//split the path.
-        //filePath = split[1];//assign it to a string(your choice).
-        File selectedGifFile = new File(getImagePath(uri));
+        String filepath = uri.getAuthority();
+        File selectedGifFile = new File(filepath);
         if (newGifFile == null) {
             return;
         }
         try {
-            FileOutputStream output = new FileOutputStream(newGifFile);
-            FileInputStream input = new FileInputStream(selectedGifFile);
+            InputStream input = this.getContext().getContentResolver().openInputStream(uri);
+            OutputStream output = new FileOutputStream(newGifFile);
 
-            FileChannel inputChannel = input.getChannel();
-            FileChannel outputChannel = output.getChannel();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                output.write(input.readAllBytes());
+            }
 
-            inputChannel.transferTo(0, inputChannel.size(), outputChannel);
             output.close();
             input.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private  String getImagePath(Uri contentURI){
-        String result;
-        Cursor cursor = this.getContext().getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) { // Source is Dropbox or other similar local file path
-            result = contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
-            cursor.close();
-        }
-        return result;
     }
     @Override
     public void onDestroyView() {

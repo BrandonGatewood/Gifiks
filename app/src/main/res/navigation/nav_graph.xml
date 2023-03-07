@@ -84,5 +84,13 @@
         <action
             android:id="@+id/action_to_ProfilePageFragment"
             app:destination="@id/ProfilePageFragment" />
+        <action
+            android:id="@+id/action_GalleryFragment_to_gifDetailActivity"
+            app:destination="@id/gifDetailActivity" />
     </fragment>
+    <activity
+        android:id="@+id/gifDetailActivity"
+        android:name="com.example.gifiks.GifDetailActivity"
+        android:label="gif_detail_activity"
+        tools:layout="@layout/gif_detail_activity" />
 </navigation>
