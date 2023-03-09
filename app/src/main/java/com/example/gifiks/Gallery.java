@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import com.example.gifiks.databinding.FragmentGalleryBinding;
 import com.example.gifiks.Account;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,11 +45,14 @@ public class Gallery extends Fragment {
     private RecyclerView imagesRV;
     private RecyclerViewAdapter imageRVAdapter;
 
+    BottomNavigationView bottomNavigationView;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        setHasOptionsMenu(true);
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -58,6 +62,17 @@ public class Gallery extends Fragment {
 
         Bundle bundle = this.getArguments();
         Account receivedAccount = Objects.requireNonNull(bundle).getParcelable("AccountInfo");
+        bottomNavigationView = (BottomNavigationView) getView().findViewById(R.id.bottomNavigationView);
+        // Use bottom nav bar to move to upload gif page
+        binding.bottomNavigationView.findViewById(R.id.uploadGifIcon).setOnClickListener(view2 -> NavHostFragment.findNavController(this)
+                .navigate(R.id.action_to_UploadGifFragment, bundle));
+        // Use bottom nav bar to move to Profile page
+        binding.bottomNavigationView.findViewById(R.id.profilePageIcon).setOnClickListener(view1 -> NavHostFragment.findNavController(this)
+                .navigate(R.id.action_to_ProfilePageFragment, bundle));
+
+        // Use bottom nav bar to move to Home Page
+        binding.bottomNavigationView.findViewById(R.id.homePageIcon).setOnClickListener(view1 -> NavHostFragment.findNavController(this)
+                .navigate(R.id.action_to_HomePageFragment, bundle));
 
         try {
             getGifs(receivedAccount.getUsername());
