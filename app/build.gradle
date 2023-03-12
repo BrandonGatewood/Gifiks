@@ -49,4 +49,5 @@ dependencies {
         // Excludes the support library because it's already included by Glide.
         transitive = false
     }
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
 }
