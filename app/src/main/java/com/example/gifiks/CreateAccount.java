@@ -26,9 +26,8 @@ import java.util.Objects;
 
 
 public class CreateAccount extends Fragment {
-    private final ArrayList<Account> allAccounts = new ArrayList<>();
+    private static final ArrayList<Account> allAccounts = new ArrayList<>();
     private ActivityCreateAccountBinding binding;
-
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -88,7 +87,8 @@ public class CreateAccount extends Fragment {
                         Bundle bundle = new Bundle();
                         bundle.putParcelable("AccountInfo", newAccount);
 
-                        createGifdirectory(username);
+                        createGifdirectory(username, directory);
+                        createProfilePictureDirectory(username, directory);
 
                         Toast.makeText(view1.getContext(), promptWelcomeMessage, Toast.LENGTH_LONG).show();
                         NavHostFragment.findNavController(CreateAccount.this)
@@ -101,9 +101,8 @@ public class CreateAccount extends Fragment {
         });
     }
 
-    private void createGifdirectory(String username) {
+    private void createGifdirectory(String username, File directory) {
         String user = "Gifs/" + username;
-        File directory = Objects.requireNonNull(this.getContext()).getDataDir();
         File gifdirectory = new File(directory, user);
         if (!gifdirectory.exists()) {
             gifdirectory.mkdirs();
@@ -111,10 +110,18 @@ public class CreateAccount extends Fragment {
 
     }
 
+    private void createProfilePictureDirectory(String username, File directory) {
+        String user = "profilePicture/";
+        File ProfilePictureDirectory = new File(directory, user);
+        if (!ProfilePictureDirectory.exists()) {
+            ProfilePictureDirectory.mkdirs();
+        }
+
+    }
     /*
         Parses through database (.txt file) and save all accounts into an array of Accounts.
      */
-    private void parseAccountsFile(File accountsFile) throws FileNotFoundException {
+    public static void parseAccountsFile(File accountsFile) throws FileNotFoundException {
         Reader reader = new FileReader(accountsFile);
 
         try (
@@ -141,7 +148,7 @@ public class CreateAccount extends Fragment {
         Check allAccounts array to see if username has been taken. Returns true if username is not
         taken. Returns false if username is taken.
      */
-    private boolean checkUsername(String username) {
+    public static boolean checkUsername(String username) {
         for(Account anAccount : allAccounts) {
             if(anAccount.getUsername().equals(username))
                 return false;
@@ -152,7 +159,7 @@ public class CreateAccount extends Fragment {
        Check allAccounts array to see if email has been taken. Returns true if email is not
        taken. Returns false if email is taken.
     */
-    private boolean checkEmail(String email) {
+    private static boolean checkEmail(String email) {
         for(Account anAccount : allAccounts) {
             if(anAccount.getEmail().equals(email))
                 return false;
