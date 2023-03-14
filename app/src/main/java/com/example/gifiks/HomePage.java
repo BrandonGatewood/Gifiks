@@ -91,7 +91,7 @@ public class HomePage extends Fragment {
 
     private void prepareRecyclerView() {
         if(imagePaths != null) {
-            imageRVAdapter = new RecyclerViewAdapter(this.getContext(), imagePaths);
+            imageRVAdapter = new RecyclerViewAdapter(this.getContext(), imagePaths, true);
 
             GridLayoutManager manager = new GridLayoutManager(this.getContext(), 1);
 

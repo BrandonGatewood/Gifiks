@@ -101,7 +101,7 @@ public class Gallery extends Fragment {
 
     private void prepareRecyclerView() {
         if(imagePaths != null) {
-            imageRVAdapter = new RecyclerViewAdapter(this.getContext(), imagePaths);
+            imageRVAdapter = new RecyclerViewAdapter(this.getContext(), imagePaths, false);
 
             GridLayoutManager manager = new GridLayoutManager(this.getContext(), 4);
 
