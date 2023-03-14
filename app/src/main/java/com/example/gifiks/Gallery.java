@@ -89,21 +89,25 @@ public class Gallery extends Fragment {
         File directory = Objects.requireNonNull(this.getContext()).getDataDir();
         File gifs = new File(directory, user);
         File[] listOfGifs = gifs.listFiles();
-        String[] list = new String[listOfGifs.length];
-        for (i = 0; i < listOfGifs.length; i++){
-            list[i] = gifs.toString() + "/" +listOfGifs[i].getName();
+        if(listOfGifs != null) {
+            String[] list = new String[listOfGifs.length];
+            for (i = 0; i < listOfGifs.length; i++) {
+                list[i] = gifs.toString() + "/" + listOfGifs[i].getName();
+            }
+            List<String> newlist = Arrays.asList(list);
+            imagePaths = new ArrayList<>(newlist);
         }
-        List<String> newlist = Arrays.asList(list);
-        imagePaths = new ArrayList<>(newlist);
     }
 
     private void prepareRecyclerView() {
-        imageRVAdapter = new RecyclerViewAdapter(this.getContext(), imagePaths);
+        if(imagePaths != null) {
+            imageRVAdapter = new RecyclerViewAdapter(this.getContext(), imagePaths, false);
 
-        GridLayoutManager manager = new GridLayoutManager(this.getContext(), 4);
+            GridLayoutManager manager = new GridLayoutManager(this.getContext(), 4);
 
-        imagesRV.setLayoutManager(manager);
-        imagesRV.setAdapter(imageRVAdapter);
+            imagesRV.setLayoutManager(manager);
+            imagesRV.setAdapter(imageRVAdapter);
+        }
     }
 
     @Override

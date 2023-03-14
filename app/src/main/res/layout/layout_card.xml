@@ -9,8 +9,6 @@
     android:elevation="8dp"
     app:cardCornerRadius="8dp">
 
-    <!--Image view for displaying the image
-        in our card layout in recycler view-->
     <ImageView
         android:id="@+id/idIVImage"
         android:layout_width="100dp"
