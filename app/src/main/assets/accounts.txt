@@ -1,0 +1,6 @@
+bg;bg@pdx.edu;bg
+brandon.gatewood;brandon.gatewood@pdx.edu;123
+finn;finn@pdx.edu;123
+ja;ja@pdx.edu;ja
+Jaafar Rodgers;Rodgers@pdx.edu;123
+mrfiszbi;mrfiszbi@pdx.edu;123
