@@ -1,6 +1,6 @@
-bg;bg@pdx.edu;bg
-brandon.gatewood;brandon.gatewood@pdx.edu;123
-finn;finn@pdx.edu;12
-ja;ja@pdx.edu;ja
-Jaafar Rodgers;Rodgers@pdx.edu;123
-mrfiszbi;mrfiszbi@pdx.edu;123
+bg;bg@pdx.edu;bg;Hi im bg
+brandon.gatewood;brandon.gatewood@pdx.edu;123;I skip leg day
+finn;finn@pdx.edu;12;Finn da pomchi
+ja;ja@pdx.edu;ja;ja
+Jaafar Rodgers;Rodgers@pdx.edu;123;Rodger Rodger
+mrfiszbi;mrfiszbi@pdx.edu;123;Yeee

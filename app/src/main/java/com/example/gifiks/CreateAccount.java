@@ -81,7 +81,7 @@ public class CreateAccount extends Fragment {
                     else {
                         String promptWelcomeMessage = "Welcome to Gifiks, " + username;
 
-                        Account newAccount = new Account(username, email);
+                        Account newAccount = new Account(username, email, "");
                         addNewAccountToTextFile(newAccount, password, accountsFile);
 
                         Bundle bundle = new Bundle();
@@ -133,9 +133,10 @@ public class CreateAccount extends Fragment {
                 // Index 0 is username
                 // Index 1 is email
                 // Index 2 is password
+                // Index 3 is bio
                 String[] anAccount = toParse.split(";");
 
-                Account account = new Account(anAccount[0], anAccount[1]);
+                Account account = new Account(anAccount[0], anAccount[1], anAccount[3]);
                 allAccounts.add(account);
                 toParse = br.readLine();
             }
