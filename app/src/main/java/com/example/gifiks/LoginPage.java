@@ -37,6 +37,8 @@ public class LoginPage extends Fragment {
 
         final EditText viewUsername = view.findViewById(R.id.loginUsername);
         final EditText viewPassword = view.findViewById(R.id.loginPassword);
+        File directory = Objects.requireNonNull(this.getContext()).getDataDir();
+        File accountsFile = new File(directory, "accounts.txt");
 
         binding.createAccount.setOnClickListener(view1 -> NavHostFragment.findNavController(LoginPage.this)
                 .navigate(R.id.action_to_CreateAccountFragment));
@@ -54,7 +56,7 @@ public class LoginPage extends Fragment {
             else {
                 // Validate login credentials
                 try {
-                    Account usersAccount = validateLoginCredentials(username, password);
+                    Account usersAccount = validateLoginCredentials(username, password, accountsFile);
                     if(usersAccount != null) {
                         /*
                             Bundle is used to pass Account objects through fragments, with a key and
@@ -83,9 +85,7 @@ public class LoginPage extends Fragment {
         then it returns an Account object for that user. If login credentials are incorrect, then
         it returns null.
      */
-    private Account validateLoginCredentials(String username, String password) throws IOException {
-        File directory = Objects.requireNonNull(this.getContext()).getDataDir();
-        File accountsFile = new File(directory, "accounts.txt");
+    static Account validateLoginCredentials(String username, String password, File accountsFile) throws IOException {
         Reader reader = new FileReader(accountsFile);
         try (
                 BufferedReader br = new BufferedReader(reader)
