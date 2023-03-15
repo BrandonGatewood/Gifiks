@@ -6,16 +6,15 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class Account implements Parcelable {
-    private final String username;
-    private final String email;
-    
-    // List of gif post account has made
-    // private final ArrayList<posts> posts;
+    private String username;
+    private String email;
 
+    private String bio;
 
     public Account(String username, String email) {
         this.username = username;
         this.email = email;
+        this.bio = "This is a BIO";
     }
 
     protected Account(Parcel in) {
@@ -39,9 +38,19 @@ public class Account implements Parcelable {
     public String getUsername() {
         return this.username;
     }
-
     public String getEmail() {
         return this.email;
+    }
+    public String getBio() {
+        return this.bio;
+    }
+
+    // Setter methods
+    public void updateUsername(String newUsername) {
+        this.username = newUsername;
+    }
+    public void updateBio(String newBio) {
+        this.bio = newBio;
     }
 
     @Override
