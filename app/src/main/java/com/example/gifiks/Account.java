@@ -7,14 +7,14 @@ import androidx.annotation.NonNull;
 
 public class Account implements Parcelable {
     private String username;
-    private String email;
+    private final String email;
 
     private String bio;
 
-    public Account(String username, String email) {
+    public Account(String username, String email, String bio) {
         this.username = username;
         this.email = email;
-        this.bio = "This is a BIO";
+        this.bio = bio;
     }
 
     protected Account(Parcel in) {

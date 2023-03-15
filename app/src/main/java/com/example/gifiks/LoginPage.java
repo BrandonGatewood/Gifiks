@@ -96,11 +96,12 @@ public class LoginPage extends Fragment {
                 // Index 0 is username
                 // Index 1 is email
                 // Index 2 is password
+                // Index 3 is bio
                 String[] loginCredentials = toParse.split(";");
 
                 // Found a match, login credentials are correct
                 if(username.equals(loginCredentials[0]) && password.equals(loginCredentials[2])) {
-                    usersAccount = new Account(loginCredentials[0], loginCredentials[1]);
+                    usersAccount = new Account(loginCredentials[0], loginCredentials[1], loginCredentials[3]);
                     return usersAccount;
                 }
                 toParse = br.readLine();
