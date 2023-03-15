@@ -39,6 +39,7 @@ public class LoginPage extends Fragment {
         final EditText viewPassword = view.findViewById(R.id.loginPassword);
         File directory = Objects.requireNonNull(this.getContext()).getDataDir();
         File accountsFile = new File(directory, "accounts.txt");
+        createProfilePictureDirectory(directory);
 
         binding.createAccount.setOnClickListener(view1 -> NavHostFragment.findNavController(LoginPage.this)
                 .navigate(R.id.action_to_CreateAccountFragment));
@@ -112,6 +113,15 @@ public class LoginPage extends Fragment {
 
         // No match found
         return null;
+    }
+
+
+    private void createProfilePictureDirectory(File directory) {
+        String user = "profilePicture/";
+        File ProfilePictureDirectory = new File(directory, user);
+        if (!ProfilePictureDirectory.exists()) {
+            ProfilePictureDirectory.mkdirs();
+        }
     }
 
     // Both functions, onResume() and onStop() will remove back button from action bar.
