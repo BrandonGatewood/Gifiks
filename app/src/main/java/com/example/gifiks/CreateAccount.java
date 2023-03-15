@@ -88,7 +88,6 @@ public class CreateAccount extends Fragment {
                         bundle.putParcelable("AccountInfo", newAccount);
 
                         createGifdirectory(username, directory);
-                        createProfilePictureDirectory(username, directory);
 
                         Toast.makeText(view1.getContext(), promptWelcomeMessage, Toast.LENGTH_LONG).show();
                         NavHostFragment.findNavController(CreateAccount.this)
@@ -110,14 +109,6 @@ public class CreateAccount extends Fragment {
 
     }
 
-    private void createProfilePictureDirectory(String username, File directory) {
-        String user = "profilePicture/";
-        File ProfilePictureDirectory = new File(directory, user);
-        if (!ProfilePictureDirectory.exists()) {
-            ProfilePictureDirectory.mkdirs();
-        }
-
-    }
     /*
         Parses through database (.txt file) and save all accounts into an array of Accounts.
      */
@@ -160,7 +151,7 @@ public class CreateAccount extends Fragment {
        Check allAccounts array to see if email has been taken. Returns true if email is not
        taken. Returns false if email is taken.
     */
-    private static boolean checkEmail(String email) {
+    public static boolean checkEmail(String email) {
         for(Account anAccount : allAccounts) {
             if(anAccount.getEmail().equals(email))
                 return false;
