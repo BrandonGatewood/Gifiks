@@ -50,6 +50,7 @@ public class ProfilePage extends Fragment {
 
         Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle(receivedAccount.getUsername());
         bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.profilePageIcon);
 
         // Set up user profile
         setUserBio(view, receivedAccount);

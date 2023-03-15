@@ -58,6 +58,7 @@ public class UploadGif extends Fragment {
 
         Bundle bundle = this.getArguments();
         bottomNavigationView = (BottomNavigationView) getView().findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.uploadGifIcon);
 
         Account receivedAccount = Objects.requireNonNull(bundle).getParcelable("AccountInfo");
         user = "Gifs/" + receivedAccount.getUsername();

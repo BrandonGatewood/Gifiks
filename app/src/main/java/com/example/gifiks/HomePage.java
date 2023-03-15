@@ -45,6 +45,7 @@ public class HomePage extends Fragment {
         Bundle bundle = this.getArguments();
         Account receivedAccount = Objects.requireNonNull(bundle).getParcelable("AccountInfo");
         bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.homePageIcon);
 
         // Use bottom nav bar to move to upload gif page
         binding.bottomNavigationView.findViewById(R.id.profilePageIcon).setOnClickListener(view1 -> NavHostFragment.findNavController(HomePage.this)
