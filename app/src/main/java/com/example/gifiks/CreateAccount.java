@@ -81,7 +81,7 @@ public class CreateAccount extends Fragment {
                     else {
                         String promptWelcomeMessage = "Welcome to Gifiks, " + username;
 
-                        Account newAccount = new Account(username, email, "");
+                        Account newAccount = new Account(username, email, "Bio");
                         addNewAccountToTextFile(newAccount, password, accountsFile);
 
                         Bundle bundle = new Bundle();
@@ -166,7 +166,7 @@ public class CreateAccount extends Fragment {
         try (
                 PrintWriter pw = new PrintWriter(new FileWriter(accountsFile, true))
         ){
-            pw.println(newAccount.getUsername() + ";" + newAccount.getEmail() + ";" + password);
+            pw.println(newAccount.getUsername() + ";" + newAccount.getEmail() + ";" + password + ";" + newAccount.getBio());
             pw.flush();
         }
         catch (Exception e) {
