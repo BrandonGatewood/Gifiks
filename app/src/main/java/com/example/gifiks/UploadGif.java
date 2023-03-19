@@ -114,13 +114,14 @@ public class UploadGif extends Fragment {
                 }
             });
 
-    private void saveGif(Uri uri) {
+    public Boolean saveGif(Uri uri) {
+        if(uri == null) {
+            return false;
+        }
         File newGifFile = new File(gifdirectory, gifName);
 
-        String filepath = uri.getAuthority();
-        File selectedGifFile = new File(filepath);
         if (newGifFile == null) {
-            return;
+            return false;
         }
         try {
             InputStream input = this.getContext().getContentResolver().openInputStream(uri);
@@ -135,6 +136,7 @@ public class UploadGif extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
     @Override
     public void onDestroyView() {
