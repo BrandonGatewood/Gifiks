@@ -16,10 +16,12 @@ import com.example.gifiks.databinding.ActivityHomePageBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class HomePage extends Fragment {
     private ActivityHomePageBinding binding;
@@ -60,13 +62,14 @@ public class HomePage extends Fragment {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         prepareRecyclerView();
 
     }
 
     private void getGifs() throws IOException {
         int i = 0, j = 0;
-        List<String> newlist = new ArrayList<>();
+        List<String> newList = new ArrayList<>();
 
         File directory = Objects.requireNonNull(this.getContext()).getDataDir();
         File users = new File(directory, "Gifs/");
@@ -82,11 +85,11 @@ public class HomePage extends Fragment {
                     String[] list = new String[listOfGifs.length];
                     for (i = 0; i < listOfGifs.length; i++) {
                         list[i] = gifs.toString() + "/" + listOfGifs[i].getName();
-                        newlist.add(list[i]);
+                        newList.add(list[i]);
                     }
                 }
             }
-            imagePaths = new ArrayList<>(newlist);
+            imagePaths = new ArrayList<>(newList);
         }
     }
 

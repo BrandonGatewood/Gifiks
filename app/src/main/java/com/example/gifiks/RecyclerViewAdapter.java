@@ -55,7 +55,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.userName.setText(user);
         }
 
-        Glide.with(holder.imageIV).load(path).into(holder.imageIV);
+        Glide.with(holder.imageIV).load(path).placeholder(R.drawable.ic_launcher_background).into(holder.imageIV);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

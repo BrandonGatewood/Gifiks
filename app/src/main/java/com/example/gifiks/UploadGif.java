@@ -108,7 +108,7 @@ public class UploadGif extends Fragment {
                         Uri uri = data.getData();
                         String selectedImageUri = data.getData().toString();
                         gifName = selectedImageUri.substring(selectedImageUri.lastIndexOf("%2F") + 3);
-                        Glide.with(this).asGif().load(selectedImageUri).into(ViewGif);
+                        Glide.with(this).asGif().load(selectedImageUri).placeholder(R.drawable.ic_launcher_background).into(ViewGif);
                         saveGif(uri);
                     }
                 }
