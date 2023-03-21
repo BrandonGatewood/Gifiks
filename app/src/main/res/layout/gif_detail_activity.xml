@@ -7,14 +7,137 @@
     android:layout_height="match_parent"
     tools:context=".GifDetailActivity">
 
+    <TextView
+        android:id="@+id/Atitle"
+        android:layout_width="105dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|left"
+        android:text="@string/gif_name_area"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/AGifName"
+        android:layout_width="301dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:gravity="center_vertical|left"
+        android:text="@string/gif_name"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/Atitle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/AUser"
+        android:layout_width="105dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|left"
+        android:text="@string/by_user"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Atitle" />
+
+    <TextView
+        android:id="@+id/ByAUser"
+        android:layout_width="303dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:gravity="center_vertical|left"
+        android:text="@string/user_name"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/AUser"
+        app:layout_constraintTop_toBottomOf="@+id/AGifName"
+        app:layout_constraintVertical_bias="0.0" />
+
     <ImageView
         android:id="@+id/idIVImage"
         android:layout_width="389dp"
         android:layout_height="240dp"
+        android:layout_marginTop="219dp"
+        android:layout_marginBottom="272dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/newCommentLayout"
+        android:layout_width="289dp"
+        android:layout_height="56dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AUser">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/yourComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_a_comment"
+                android:inputType="text"
+                android:labelFor="@id/yourComment"
+                android:textColorHint="#757575" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/comment"
+        android:layout_width="115dp"
+        android:layout_height="53dp"
+        android:onClick="comment"
+        android:text="@string/comment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ByAUser" />
+
+    <ScrollView
+        android:layout_width="397dp"
+        android:layout_height="201dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.211" />
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.481"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.162">
+
+            <TextView
+                android:id="@+id/Comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center_vertical|start"
+                android:text=""
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="40dp"
+                tools:layout_editor_absoluteY="231dp" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

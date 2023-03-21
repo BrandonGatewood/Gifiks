@@ -33,4 +33,11 @@
     <string name="profilebtn">Profile</string>
     <string name="logoout">logoout</string>
     <string name="profilepicture">ProfilePicture</string>
+    <string name="gif_name">Gif Name</string>
+    <string name="gif_name_area">Gif Name:</string>
+    <string name="by_user">By User:</string>
+    <string name="user_name">User Name</string>
+    <string name="comments">Comments</string>
+    <string name="enter_a_comment">Enter a Comment</string>
+    <string name="comment">comment</string>
 </resources>

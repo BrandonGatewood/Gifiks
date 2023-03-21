@@ -20,7 +20,7 @@
             android:layout_width="105dp"
             android:layout_height="50dp"
             android:gravity="center_vertical|left"
-            android:text="Gif Name:"
+            android:text="@string/gif_name_area"
             android:textColor="#000000"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
             android:layout_height="50dp"
             android:gravity="center_vertical|left"
             android:ems="10"
-            android:text="Gif Name"
+            android:text="@string/gif_name"
             android:textColor="#000000"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
             android:layout_height="50dp"
             android:gravity="center_vertical|left"
             android:textSize="20sp"
-            android:text="By User:"
+            android:text="@string/by_user"
             android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -60,7 +60,7 @@
             android:ems="10"
             android:gravity="center_vertical|left"
             android:textSize="20sp"
-            android:text="User Name"
+            android:text="@string/user_name"
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +81,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.498" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
