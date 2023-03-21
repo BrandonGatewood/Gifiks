@@ -108,19 +108,20 @@ public class UploadGif extends Fragment {
                         Uri uri = data.getData();
                         String selectedImageUri = data.getData().toString();
                         gifName = selectedImageUri.substring(selectedImageUri.lastIndexOf("%2F") + 3);
-                        Glide.with(this).asGif().load(selectedImageUri).into(ViewGif);
+                        Glide.with(this).asGif().load(selectedImageUri).placeholder(R.drawable.ic_launcher_background).into(ViewGif);
                         saveGif(uri);
                     }
                 }
             });
 
-    private void saveGif(Uri uri) {
+    public Boolean saveGif(Uri uri) {
+        if(uri == null) {
+            return false;
+        }
         File newGifFile = new File(gifdirectory, gifName);
 
-        String filepath = uri.getAuthority();
-        File selectedGifFile = new File(filepath);
         if (newGifFile == null) {
-            return;
+            return false;
         }
         try {
             InputStream input = this.getContext().getContentResolver().openInputStream(uri);
@@ -135,6 +136,7 @@ public class UploadGif extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
     @Override
     public void onDestroyView() {

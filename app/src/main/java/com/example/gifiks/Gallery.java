@@ -66,7 +66,10 @@ public class Gallery extends Fragment {
 
     }
 
-    private void getGifs(String username) throws IOException {
+    public boolean getGifs(String username) throws IOException {
+        if(username == null){
+            return false;
+        }
         int i = 0;
         String user = "Gifs/" + username;
         File directory = Objects.requireNonNull(this.getContext()).getDataDir();
@@ -80,6 +83,7 @@ public class Gallery extends Fragment {
             List<String> newlist = Arrays.asList(list);
             imagePaths = new ArrayList<>(newlist);
         }
+        return true;
     }
 
     private void prepareRecyclerView() {
