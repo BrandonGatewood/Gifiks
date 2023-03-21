@@ -5,18 +5,16 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import java.io.File;
-import java.util.ArrayList;
-
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
     private final Context context;
@@ -83,6 +81,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             if(homepage){
                 gifName = itemView.findViewById(R.id.GifName);
                 userName = itemView.findViewById(R.id.Byuser);
+                ImageButton shareBtn = itemView.findViewById(R.id.shareBtn);
+                ImageButton likeBtn = itemView.findViewById(R.id.likeBtn);
+                likeBtn.setSelected(false);
+
+                likeBtn.setOnClickListener(v -> {
+                    likeBtn.setSelected(!likeBtn.isSelected());
+
+                });
+
+                shareBtn.setOnClickListener(v -> {
+                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+
+                    // type of the content to be shared
+                    sharingIntent.setType("text/plain");
+
+
+
+
+                    itemView.getContext().startActivity(Intent.createChooser(sharingIntent, "Share using"));
+                });
+
             }
         }
     }
